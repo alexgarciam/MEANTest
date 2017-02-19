@@ -1,4 +1,4 @@
 /* GET home page */
 module.exports.about = function(req, res){
-	res.render('index', { title: 'about' });
+	res.render('generic-text', { title: 'about' });
 };
