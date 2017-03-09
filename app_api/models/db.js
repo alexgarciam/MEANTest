@@ -1,5 +1,5 @@
 var mongoose = require( 'mongoose' );
-var dbURI = 'mongodb://192.168.116.131:27020/Loc8r';
+var dbURI = 'mongodb://192.168.116.133:27020/Loc8r';
 mongoose.connect(dbURI);
 mongoose.connection.on('connected', function () {
 	console.log('Mongoose connected to ' + dbURI);
@@ -56,6 +56,3 @@ process.on('SIGTERM', function() {
 		process.exit(0);
 	});
 });
-
-//cargamos las locations
-require('.locations');

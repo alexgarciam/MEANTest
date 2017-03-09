@@ -1,3 +1,12 @@
+var request = require('request')
+//variable de entorno para cambiar la url de la API entre development y producción
+var apiOptions = {
+server : "http://localhost:3000"
+};
+if (process.env.NODE_ENV === 'production') {
+    apiOptions.server = "https://getting-mean-loc8r.herokuapp.com";
+}
+
 var mongoose=require('mongoose');
 
 /* GET 'home' page */
