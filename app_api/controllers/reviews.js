@@ -43,8 +43,10 @@ module.exports.reviewsReadOne = function(req, res) {
 
 
 module.exports.reviewsCreate = function(req, res) {
+	console.log("Petición de Nueva Review!");
 	var locationid = req.params.locationid;
 	if (locationid) {
+		console.log("location found guardando review...");
 		Loc.findById(locationid).select('reviews').exec(function(err, location) {
 			if (err) {				
 				sendJSONresponse(res, 400, err);
@@ -53,11 +55,13 @@ module.exports.reviewsCreate = function(req, res) {
 			}
 		});
 	} else {
+		console.log("lcoation not found!!");
 		sendJSONresponse(res, 404, {"message": "Not found, locationid required"});
 	}
 };
 
 var doAddReview = function(req, res, location) {
+	console.log("guardando review!");
 	if (!location) {
 			sendJsonResponse(res, 404, {"message": "locationid not found"});
 		} else {
@@ -72,7 +76,7 @@ var doAddReview = function(req, res, location) {
 				console.log("error: "+err)
 				sendJSONresponse(res, 400, err);
 			} else {
-
+				console.log("review guardada!");
 				updateAverageRating(location._id);
 				thisReview = location.reviews[location.reviews.length - 1];
 				sendJSONresponse(res, 201, thisReview);

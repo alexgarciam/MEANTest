@@ -1,5 +1,13 @@
+/**
+*
+*	Este archivo ya no se usa, puesto que la aplicación no accede directamente a la base de datos, si no que hace peticiones a la API
+*	Es la APi la que tiene el acceso a la base de datos.
+*
+*/
+
+
 var mongoose = require( 'mongoose' );
-var dbURI = 'mongodb://192.168.116.131:27020/Loc8r';
+var dbURI = 'mongodb://192.168.116.134:27020/Loc8r';
 mongoose.connect(dbURI);
 mongoose.connection.on('connected', function () {
 	console.log('Mongoose connected to ' + dbURI);

@@ -1,15 +1,6 @@
 var  mongoose = require('mongoose');
-var request = require('request')
 require('../models/locations.js');
 var Loc = mongoose.model('Location');
-
-//variable de entorno para cambiar la url de la API entre development y producción
-var apiOptions = {
-server : "http://localhost:3000"
-};
-if (process.env.NODE_ENV === 'production') {
-	apiOptions.server = "https://getting-mean-loc8r.herokuapp.com";
-}
 
 //metodo genérico para encapsular la respuesta
 var sendJSONresponse = function(res, status, content) {
@@ -46,15 +37,16 @@ module.exports.locationsListByDistance = function(req, res) {
 		num: 10
 	};
 
-	  if (!lng || !lat ) {
-	    console.log('locationsListByDistance missing params');
-	    sendJSONresponse(res, 404, {"message": "lng, lat and maxDistance query parameters are all required"});
-	    return;
-	  }
+	if ((!lng && lng!=0) || (!lat && lat!=00) ) {
+		console.log('locationsListByDistance missing params');
+		sendJSONresponse(res, 404, {"message": "lng and lat query parameters are all required"});
+		return;
+	}
 
 	Loc.geoNear(point, geoOptions, function (err, results, stats) {
 		var locations = [];
-		results.forEach(function(doc) {
+		if(results.length){
+			results.forEach(function(doc) {
 			locations.push({
 				distance: theEarth.getDistanceFromRads(doc.dis),
 				name: doc.obj.name,
@@ -63,7 +55,9 @@ module.exports.locationsListByDistance = function(req, res) {
 				facilities: doc.obj.facilities,
 				_id: doc.obj._id
 			});
-		});
+		});		
+		}
+		
 		sendJSONresponse(res, 200, locations);
 	});
 };
@@ -76,7 +70,6 @@ module.exports.locationsCreate = function (req, res) {
 //metodo que busca en la base de datos por locationid que viene en los parametros del req
 module.exports.locationsReadOne = function(req, res) {
 	if(req.params && req.params.locationid){
-		console.log("buscando: "+req.params.locationid);
 		Loc.findById(req.params.locationid).exec(function(err, location) {
 			if(!location){
 				sendJSONresponse(res, 404, {"message":"locationid not found"});
@@ -84,9 +77,7 @@ module.exports.locationsReadOne = function(req, res) {
 			}else if(err){
 				sendJSONresponse(res, 404, err);
 			}
-			sendJSONresponse(res, 200, location);
-			
-			console.log("location: "+location);
+			sendJSONresponse(res, 200, location);			
 		});
 	}else{
 		sendJSONresponse(res, 404, {"message":"no locationid in request"});
