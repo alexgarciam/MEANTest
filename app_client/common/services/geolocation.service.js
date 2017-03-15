@@ -1,3 +1,5 @@
+//enclosuer o IIFE (inmediately invoqued function expression)
+(function () {
 angular.module('loc8rApp').service('geolocation', geolocation);
 
 function geolocation () {
@@ -12,3 +14,5 @@ function geolocation () {
 		getPosition : getPosition
 	};
 }
+
+})();

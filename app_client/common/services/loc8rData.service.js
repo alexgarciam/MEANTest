@@ -1,3 +1,5 @@
+//enclosuer o IIFE (inmediately invoqued function expression)
+(function () {
 angular.module('loc8rApp').service('loc8rData', loc8rData);
 
 loc8rData.$inject = ['$http'];
@@ -10,3 +12,4 @@ function loc8rData ($http) {
 		locationByCoords : locationByCoords
 	};
 }
+})();

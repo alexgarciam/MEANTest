@@ -1,4 +1,5 @@
-
+//enclosuer o IIFE (inmediately invoqued function expression)
+(function () {
 var _isNumeric = function (n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 };
@@ -22,3 +23,4 @@ var formatDistance = function () {
 };
 
 angular.module('loc8rApp').filter('formatDistance', formatDistance);
+})();
