@@ -12,8 +12,9 @@ var ctrlLocationPromises = require('../controllers/promises');
 /* Locations pages */
 
 //estas dos hacen lo mismo pero una usa la api fetch y la otra un request
-router.get('/', ctrlLocationPromises.homelist);
+//router.get('/', ctrlLocationPromises.homelist);
 //router.get('/', ctrlLocations.homelist);
+router.get('/', ctrlOthers.angularApp);
 
 router.get('/location/:locationid', ctrlLocations.locationInfo);
 router.get('/location/:locationid/review/new', ctrlLocations.addReview);
